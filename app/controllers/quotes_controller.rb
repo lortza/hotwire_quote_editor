@@ -16,7 +16,14 @@ class QuotesController < ApplicationController
     @quote = Quote.new(quote_params)
 
     if @quote.save
-      redirect_to quotes_path, notice: "Quote was successfully created."
+      respond_to do |format|
+        format.html { redirect_to quotes_path, notice: "Quote was successfully created." }
+        # In order to get SPA-like behavior on a create, we need to include support for the
+        # turbo_stream response format and then make a corresponding view for it. This will
+        # allow us to prepend the new content to the target turbo_frame. see:
+        # app/views/quotes/destroy.turbo_stream.erb
+        format.turbo_stream
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,6 +43,9 @@ class QuotesController < ApplicationController
   def destroy
     respond_to do |format|
       format.html { redirect_to quotes_path, notice: "Quote was successfully destroyed." }
+      # In order to get SPA-like behavior on a delete, we need to include support for the
+      # turbo_stream response format and then make a corresponding view for it. see:
+      # app/views/quotes/destroy.turbo_stream.erb
       format.turbo_stream
     end
   end

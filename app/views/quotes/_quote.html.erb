@@ -1,5 +1,9 @@
+<!-- the turbo_frame_tag helper can take an object and
+automatically produce a dom_id from it -->
 <%= turbo_frame_tag quote do %>
   <div class="quote">
+    <!-- since there is no matching turbo frame for the show page,
+    use the built-in `_top` frame to  target the whole page -->
     <%= link_to quote.name,
                 quote_path(quote),
                 data: { turbo_frame: "_top" } %>

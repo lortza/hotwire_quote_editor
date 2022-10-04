@@ -4,6 +4,8 @@
   <div class="header">
     <h1>New quote</h1>
   </div>
-
-  <%= render "form", quote: @quote %>
+  <!-- this is the piece of the page I want to have appear on the index page: -->
+  <%= turbo_frame_tag 'new_form' do %>
+    <%= render "form", quote: @quote %>
+  <% end %>
 </main>

@@ -1,1 +1,4 @@
-<%= turbo_stream.remove "quote_#{@quote.id}" %>
+<!-- By calling the `remove` method, Turbo removes the
+Turbo Frame corresponding to the deleted quote only (via its dom_id),
+leaving the rest of the page untouched. -->
+<%= turbo_stream.remove @quote %>

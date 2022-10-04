@@ -1,0 +1,14 @@
+<!-- Step 1:
+Prepend the `_quote.html.erb` partial including the local variable `quote`
+to the `turbo_frame_tag 'quotes'` frame on the index page. -->
+<%= turbo_stream.prepend "quotes" do %>
+  <%= render partial: "quotes/quote", locals: { quote: @quote } %>
+<% end %>
+
+<!-- You can use an alternate one-line syntax for the block above like this: -->
+<%#= turbo_stream.prepend "quotes", partial: "quotes/quote", locals: { quote: @quote } %>
+
+<!-- Step 2:
+Update the  `turbo_frame_tag 'new_form'` frame on the index page with empty content.
+To make it disappear. -->
+<%= turbo_stream.update 'new_form', "" %>

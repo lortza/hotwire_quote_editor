@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
   def index
-    # Keep the order of the quotes consistent even if we refresh the page. 
+    # Keep the order of the quotes consistent even if we refresh the page.
     @quotes = Quote.ordered
   end
 
@@ -42,6 +42,8 @@ class QuotesController < ApplicationController
   end
 
   def destroy
+    @quote.destroy
+
     respond_to do |format|
       format.html { redirect_to quotes_path, notice: "Quote was successfully destroyed." }
       # In order to get SPA-like behavior on a delete, we need to include support for the

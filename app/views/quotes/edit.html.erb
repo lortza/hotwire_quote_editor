@@ -5,7 +5,19 @@
     <h1>Edit quote</h1>
   </div>
 
+  <!-- This is the piece of the page I want to have replace the individual quote
+  component on the index page. This is why we're using the dom_id via the @quote
+  object to identify the exact turbo_frame -->
   <%= turbo_frame_tag @quote do %>
     <%= render "form", quote: @quote %>
   <% end %>
 </main>
+
+<!-- When our user clicks on the "Cancel" link for the edit quote form:
+1. The link is within a Turbo Frame of id dom_id(quote), so Turbo will only replace
+the content of this frame.
+2. The link navigates to the Quotes#index page that contains a Turbo Frame with id
+dom_id(quote) that contains the HTML for this quote
+3. Turbo replaces the content of the dom_id(quote) Frame containing the form with the
+HTML for this quote
+-->

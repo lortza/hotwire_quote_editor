@@ -4,4 +4,5 @@ class User < ApplicationRecord
   # for a normal application with multiple users.
   devise :database_authenticatable, :validatable
 
+  belongs_to :company
 end

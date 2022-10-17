@@ -2,6 +2,7 @@
 # Otherwise you'll get unexpected & confusing results. #learned-the-hard-way
 
 class Quote < ApplicationRecord
+  belongs_to :company
   validates :name, presence: true
 
   # Keep the order of the quotes consistent even if we refresh the page.

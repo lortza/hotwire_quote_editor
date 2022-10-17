@@ -53,6 +53,12 @@ gem "bootsnap", require: false
 
 gem "simple_form", "~> 5.1.0"
 
+# When logging in users, you might encounter a redirection bug when submitting an invalid form.
+# This is because the Devise gem does not support Turbo yet (version 4.8.1). The easiest way
+# to prevent this bug is to disable Turbo on Devise forms by setting the data-turbo attribute
+# to false on Devise forms: https://www.hotrails.dev/turbo-rails/turbo-drive
+gem "devise", "~> 4.8.1"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

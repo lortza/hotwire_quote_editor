@@ -1,3 +1,12 @@
+<!-- Subscribe this page to the "quotes" stream -->
+<%= turbo_stream_from "quotes" %>
+<!-- All of the users on the Quotes#index page are now subscribed to the Turbo::StreamsChannel
+and waiting for broadcastings to the "quotes" stream. Every time a new quote is inserted in
+the database, those users will receive HTML in the Turbo Stream format, and Turbo will prepend
+the markup for the created quote to the list of quotes.
+-->
+
+<!-- The rest of the HTML of the index page -->
 <main class="container">
   <div class="header">
     <h1>Quotes</h1>

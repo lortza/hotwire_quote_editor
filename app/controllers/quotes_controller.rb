@@ -60,11 +60,16 @@ class QuotesController < ApplicationController
     if @quote.update(quote_params)
       # 2. The form submission is valid on the controller side, so the controller redirects to the
       # Quotes#index page.
-      redirect_to quotes_path, notice: "Quote was successfully updated."
-      # 3. The updated Quotes#index page contains a Turbo Frame of the same id that contains a card
-      # with the updated quote name.
-      # 4. Turbo replaces the frame's content containing the form with the frame's content containing
-      # the updated quote card.
+      respond_to do |format|
+        format.html { redirect_to quotes_path, notice: "Quote was successfully updated." }
+        # 3. The updated Quotes#index page contains a Turbo Frame of the same id that contains a card
+        # with the updated quote name.
+        # 4. Turbo replaces the frame's content containing the form with the frame's content containing
+        # the updated quote card.
+        # 5. If we want to use flash messages for the update function, we have to addit manually here
+        # and create the corresponding view: app/views/quotes/update.turbo_stream.erb
+        format.turbo_stream { flash.now[:notice] = "Quote was successfully updated." }
+      end
     else
       # 2. The form submission is invalid, so the controller renders the app/quotes/edit.html.erb view
       # with the errors on the form.

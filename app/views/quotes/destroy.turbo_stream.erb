@@ -2,3 +2,6 @@
 Turbo Frame corresponding to the deleted quote only (via its dom_id),
 leaving the rest of the page untouched. -->
 <%= turbo_stream.remove @quote %>
+
+<!-- Prepend to the DOM node of id flash the content of the layouts/flash partial. -->
+<%= turbo_stream.prepend "flash", partial: "layouts/flash" %>

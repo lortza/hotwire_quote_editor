@@ -16,3 +16,8 @@ To make it disappear. -->
 <!-- Removing the form like this also seems to work
 <%#= turbo_stream.remove 'new_form' %>
 -->
+
+<!-- Step 3:
+Prepend to the DOM node of id flash the content of the layouts/flash partial.
+-->
+<%= turbo_stream.prepend "flash", partial: "layouts/flash" %>

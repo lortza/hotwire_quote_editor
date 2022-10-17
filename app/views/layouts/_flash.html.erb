@@ -1,0 +1,13 @@
+<% flash.each do |flash_type, message| %>
+  <!--
+  Adding the data attributes below allows us to connect to a stimulus controller
+  which calls some JS kind of like a callback
+  -->
+  <div
+    class="flash__message"
+    data-controller="removals"
+    data-action="animationend->removals#remove"
+  >
+    <%= message %>
+  </div>
+<% end %>

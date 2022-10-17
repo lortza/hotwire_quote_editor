@@ -12,8 +12,11 @@
 
   <body>
     <%= render "layouts/navbar" %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <!-- Assign an id of "flash" so turbo can find this and insert
+    the contents of the flash partial -->
+    <div id="flash" class="flash">
+      <%= render "layouts/flash" %>
+    </div>
     <%= yield %>
   </body>
 </html>

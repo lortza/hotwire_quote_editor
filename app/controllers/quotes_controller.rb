@@ -37,7 +37,7 @@ class QuotesController < ApplicationController
         # turbo_stream response format and then make a corresponding view for it. This will
         # allow us to prepend the new content to the target turbo_frame. see:
         # app/views/quotes/create.turbo_stream.erb
-        format.turbo_stream
+        format.turbo_stream { flash.now[:notice] = "Quote was successfully created." }
       end
     else
       # The server receives the invalid params in the QuotesController#create action and renders
@@ -85,7 +85,8 @@ class QuotesController < ApplicationController
       # In order to get SPA-like behavior on a delete, we need to include support for the
       # turbo_stream response format and then make a corresponding view for it. see:
       # app/views/quotes/destroy.turbo_stream.erb
-      format.turbo_stream
+      format.turbo_stream { flash.now[:notice] = "Quote was successfully destroyed." }
+
     end
   end
 

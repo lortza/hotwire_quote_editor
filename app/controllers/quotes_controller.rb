@@ -15,12 +15,14 @@ class QuotesController < ApplicationController
     # turbo_frame_tag('new_form') on the index.
     @quote = Quote.new
 
-
-    When clicking on the "New quote" link, the click will be intercepted by Turbo.
-    Turbo knows it has to interact with the frame of id new_quote thanks to the attribute data-turbo-frame on the "New quote" link.
-    The request is sent in AJAX, and our server will render the Quotes#new page with a frame with id new_quote.
-    When the browser receives the HTML, Turbo will extract the frame with the id of new_quote from the Quotes#new page and replace the empty frame with the same id on the Quotes#index page!
-
+    # When clicking on the "New quote" link, the click will be intercepted by Turbo.
+    # Turbo knows it has to interact with the frame of id new_form thanks to the
+    # attribute data-turbo-frame on the "New quote" link.
+    # The request is sent in AJAX, and our server will render the Quotes#new page with
+    # a frame with id new_form.
+    # When the browser receives the HTML, Turbo will extract the frame with the id of
+    # new_form from the Quotes#new page and replace the empty frame with the same id on
+    # the Quotes#index page.
   end
 
   def create
@@ -34,7 +36,7 @@ class QuotesController < ApplicationController
         # In order to get SPA-like behavior on a create, we need to include support for the
         # turbo_stream response format and then make a corresponding view for it. This will
         # allow us to prepend the new content to the target turbo_frame. see:
-        # app/views/quotes/destroy.turbo_stream.erb
+        # app/views/quotes/create.turbo_stream.erb
         format.turbo_stream
       end
     else

@@ -3,7 +3,7 @@ class QuotesController < ApplicationController
 
   def index
     # Keep the order of the quotes consistent even if we refresh the page.
-    @quotes = Quote.ordered
+    @quotes = current_company.quotes.ordered
   end
 
   def show
@@ -27,7 +27,7 @@ class QuotesController < ApplicationController
 
   def create
     # When clicking on the "Create Quote" button, the form submission is intercepted by Turbo.
-    @quote = Quote.new(quote_params)
+    @quote = current_company.quotes.build(quote_params)
 
     # The form is wrapped in a frame with id `new_form`, so Turbo knows it only needs to replace this frame.
     if @quote.save
@@ -92,7 +92,7 @@ class QuotesController < ApplicationController
   private
 
   def set_quote
-    @quote = Quote.find(params[:id])
+    @quote = current_company.quotes.find(params[:id])
   end
 
   def quote_params

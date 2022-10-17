@@ -1,10 +1,16 @@
 <!-- Subscribe this page to the "quotes" stream -->
-<%= turbo_stream_from "quotes" %>
+
+<!-- SCENARIO 1: Assuming all users can see all quotes, do this: -->
+<%#= turbo_stream_from "quotes" %>
 <!-- All of the users on the Quotes#index page are now subscribed to the Turbo::StreamsChannel
 and waiting for broadcastings to the "quotes" stream. Every time a new quote is inserted in
 the database, those users will receive HTML in the Turbo Stream format, and Turbo will prepend
 the markup for the created quote to the list of quotes.
 -->
+
+<!-- SCENARIO 2: Assuming the quotes users can see are scoped to the ones that belong
+to the current user's company, do this: -->
+<%= turbo_stream_from current_company, "quotes" %>
 
 <!-- The rest of the HTML of the index page -->
 <main class="container">

@@ -1,0 +1,23 @@
+.empty-state {
+  padding: var(--space-m);
+  border: var(--border);
+  border-style: dashed;
+  text-align: center;
+
+  &__text {
+    font-size: var(--font-size-l);
+    color: var(--color-text-header);
+    margin-bottom: var(--space-l);
+    font-weight: bold;
+  }
+
+  /* using this --only-child to help show/hide the "hey make a quote"
+  empty state component on the quotes#index page */
+  &--only-child {
+    display: none;
+
+    &:only-child {
+      display: revert;
+    }
+  }
+}

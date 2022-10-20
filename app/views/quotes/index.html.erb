@@ -18,7 +18,7 @@ to the current user's company, do this: -->
     <h1>Quotes</h1>
     <%= link_to "New quote",
                 new_quote_path,
-                data: { turbo_frame: "new_form" },
+                data: { turbo_frame: "new_quote_form" },
                 class: "btn btn--primary"
     %>
   </div>
@@ -28,7 +28,7 @@ to the current user's company, do this: -->
     turbo_frame_tag Quote.new
     turbo_frame_tag @quote
     I chose the string version just to be very explicit in this learning app. -->
-    <%= turbo_frame_tag 'new_form' %>
+  <%= turbo_frame_tag 'new_quote_form' %>
 
     <!-- This 'quotes' id will be used in the views/quotes/create.turbo_stream.erb -->
     <%= turbo_frame_tag 'quotes' do %>

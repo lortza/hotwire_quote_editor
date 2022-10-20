@@ -9,12 +9,12 @@ to the `turbo_frame_tag 'quotes'` frame on the index page. -->
 <%#= turbo_stream.prepend "quotes", partial: "quotes/quote", locals: { quote: @quote } %>
 
 <!-- Step 2:
-Update the  `turbo_frame_tag 'new_form'` frame on the index page with empty content.
+Update the  `turbo_frame_tag 'new_quote_form'` frame on the index page with empty content.
 To make it disappear. -->
-<%= turbo_stream.update 'new_form', "" %>
+<%= turbo_stream.update 'new_quote_form', "" %>
 
 <!-- Removing the form like this also seems to work
-<%#= turbo_stream.remove 'new_form' %>
+<%#= turbo_stream.remove 'new_quote_form' %>
 -->
 
 <!-- Step 3:

@@ -11,17 +11,17 @@ class QuotesController < ApplicationController
 
   def new
     # When we route to this action, the `new` view is accessed and only the html
-    # with the matching turbo_frame_tag id `new_form` will be rendered inside the
-    # turbo_frame_tag('new_form') on the index.
+    # with the matching turbo_frame_tag id `new_quote_form` will be rendered inside the
+    # turbo_frame_tag('new_quote_form') on the index.
     @quote = Quote.new
 
     # When clicking on the "New quote" link, the click will be intercepted by Turbo.
-    # Turbo knows it has to interact with the frame of id new_form thanks to the
+    # Turbo knows it has to interact with the frame of id new_quote_form thanks to the
     # attribute data-turbo-frame on the "New quote" link.
     # The request is sent in AJAX, and our server will render the Quotes#new page with
-    # a frame with id new_form.
+    # a frame with id new_quote_form.
     # When the browser receives the HTML, Turbo will extract the frame with the id of
-    # new_form from the Quotes#new page and replace the empty frame with the same id on
+    # new_quote_form from the Quotes#new page and replace the empty frame with the same id on
     # the Quotes#index page.
   end
 
@@ -29,7 +29,7 @@ class QuotesController < ApplicationController
     # When clicking on the "Create Quote" button, the form submission is intercepted by Turbo.
     @quote = current_company.quotes.build(quote_params)
 
-    # The form is wrapped in a frame with id `new_form`, so Turbo knows it only needs to replace this frame.
+    # The form is wrapped in a frame with id `new_quote_form`, so Turbo knows it only needs to replace this frame.
     if @quote.save
       respond_to do |format|
         format.html { redirect_to quotes_path, notice: "Quote was successfully created." }

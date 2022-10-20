@@ -45,4 +45,5 @@ class Quote < ApplicationRecord
   # that a quote is associated with a company directly, but not a user directly.) So we're passing
   # in the company object to this method.
   broadcasts_to ->(quote) { [quote.company, "quotes"] }, inserts_by: :prepend
+  # ^this corresponds to the turbo_stream_from statement on the top of the quotes/index.html.erb
 end

@@ -11,6 +11,7 @@ the markup for the created quote to the list of quotes.
 <!-- SCENARIO 2: Assuming the quotes users can see are scoped to the ones that belong
 to the current user's company, do this: -->
 <%= turbo_stream_from current_company, "quotes" %>
+<!-- ^this corresponds to the broadcasts_to statement in the quote model -->
 
 <!-- The rest of the HTML of the index page -->
 <main class="container">

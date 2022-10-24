@@ -12,7 +12,7 @@ Following this tutorial: https://www.hotrails.dev/turbo-rails
 I've taken notes directly in the codebase. In the later chapters, I noted the chapter in the commit message. This is a breakdown of where things are happening in the codebase.
 
 ### CRUD First
-As a general rule, we set up everything in the basic CRUD way first, then go back in to add hotwire and action cable technology. So expect to see a standard controller and standard erb files. The links are connected to CRUD routes and do hit those controller actions. Any time a link is inside a `turbo_frame_tag`, turbo intercepts the call in the controller and completes it via AJAX.
+As a general rule, we set up everything in the basic CRUD way first, then go back in to add hotwire and action cable technology. So expect to see a standard controller and standard erb files. We do this so that people who may have older browsers can still get the RESTful experience even if the snazzy hotwire experience does not work for them. The links are connected to CRUD routes and do hit those controller actions. Any time a link is inside a `turbo_frame_tag`, turbo intercepts the call in the controller and completes it via AJAX.
 
 Since we need a little extra SPA-like functionality in our `create` and `destroy` actions (like adding or removing a record from a list of records inside a `<div>` on the index page), we also need to expand our controller `respond_to` block to include a `turbo_stream` format and provide a corresponding view file (ex: `app/views/quotes/create.turbo_stream.erb`) to outline those actions.
 
@@ -23,6 +23,10 @@ We used a little CSS magic to handle the "empty state" case of when there are no
 
 ### Action Cable Streaming
 This is what gives you the functionality that updates content across all browsers. The `Quote` model houses the `broadcasts_to` statements. Always remember to restart the server if you are making changes to broadcast statements in the model or else weird stuff will happen.
+
+Streaming is based on a stream name. By default, all users will see all content. :scream: In the case of a public chatroom where all `users` see all `messages`, that's what you want and a stream name of `"messages"` is perfect. But let's say that a `user` belongs to a `company` and we only want the `user` to see chat `messages` from their `company`. In this case, we'd name the messages stream in a scoped manner -- like a concatenation of the `dom_id` of the `company` object and the string `"messages"`. This ensures `users` only see `messages` relevant to their associated `company`.
+
+In our app, we're talking about quotes, not messages, but we take the same scoped naming approach, using both `current_company` and `"quotes"`. So the model is broadcasting it (with `broadcasts_to ->(quote) { [quote.company, "quotes"] }, inserts_by: :prepend`) and the whole `app/views/quotes/index.html.erb` view is subscribed to that stream with `<%= turbo_stream_from current_company, "quotes" >`. I think it is weird that the `quote` is associated to a `company` and not directly to a `user`, but it is what it is in this example.
 
 ### Beware of Magic
 There is a lot of syntactic sugar available in these features, which is neat, but not explicit enough for me while I'm learning something new. For example, here is a shortcut line:
@@ -38,7 +42,3 @@ after_update_commit -> { broadcast_replace_later_to "quotes", partial: "quotes/q
 after_destroy_commit -> { broadcast_remove_to "quotes", partial: "quotes/quote", locals: { quote: self }, target: "quotes" }
 ```
 It's clean. I little _too_ clean. I made comments of all of the possible options in the codebase where I could.
-
-Streaming is based on a stream name. By default, all users will see all content. :scream: In the case of a public chatroom where all `users` see all `messages`, that's what you want and a stream name of `"messages"` is perfect. But let's say that a `user` belongs to a `company` and we only want the `user` to see chat `messages` from their `company`. In this case, we'd name the messages stream in a scoped manner -- like a concatenation of the `dom_id` of the `company` object and the string `"messages"`. This ensures `users` only see `messages` relevant to their associated `company`.
-
-In our app, we're talking about quotes, not messages, but we take the same scoped naming approach: `turbo_stream_from current_company, "quotes"`. We subscribe the whole `app/views/quotes/index.html.erb` page to this stream. So the model is broadcasting it ( with `broadcasts_to ->(quote) { [quote.company, "quotes"] }, inserts_by: :prepend`) and the view is subscribed to that stream. I think it is weird that the `quote` is associated to a `company` and not directly to a `user`, but it is what it is in this example.

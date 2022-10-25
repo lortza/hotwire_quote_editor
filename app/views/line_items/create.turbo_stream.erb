@@ -1,0 +1,6 @@
+<%= turbo_stream.remove nested_dom_id(@line_item_date, LineItem.new) %>
+
+<%= turbo_stream.append nested_dom_id(@line_item_date, 'line_items') do %>
+  <!-- i don't understand this shortened sytax. it should be the line_item partial -->
+  <%= render @line_item, quote: @quote, line_item_date: @line_item_date %>
+<% end %>

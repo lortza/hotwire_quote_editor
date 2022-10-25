@@ -51,3 +51,17 @@ It's clean. I little _too_ clean. I made comments of all of the possible options
 ## Resources
 * [deploying hotwire apps to heroku](https://www.youtube.com/watch?v=mpWFrUwAN88&t=1755s)
 * [thoughtbot app templates](https://github.com/thoughtbot/hotwire-example-template)
+
+## Course Chapters
+- Chapter 0 [Turbo Rails tutorial introduction](https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction)
+- Chapter 1 [A simple CRUD controller with Rails](https://www.hotrails.dev/turbo-rails/crud-controller-ruby-on-rails)
+- Chapter 2 [Organizing CSS files in Ruby on Rails](https://www.hotrails.dev/turbo-rails/css-ruby-on-rails)
+- Chapter 3 [Turbo Drive](https://www.hotrails.dev/turbo-rails/turbo-drive)
+- Chapter 4 [Turbo Frames and Turbo Stream templates](https://www.hotrails.dev/turbo-rails/turbo-frames-and-turbo-streams)
+- Chapter 5 [Real-time updates with Turbo Streams](https://www.hotrails.dev/turbo-rails/turbo-streams)
+- Chapter 6 [Turbo Streams and security](https://www.hotrails.dev/turbo-rails/turbo-streams-security)
+- Chapter 7 [Flash messages with Hotwire](https://www.hotrails.dev/turbo-rails/flash-messages-hotwire)
+- Chapter 8 [Two ways to handle empty states with Hotwire](https://www.hotrails.dev/turbo-rails/empty-states)
+- Chapter 9 [Another CRUD controller with Turbo Rails](https://www.hotrails.dev/turbo-rails/turbo-rails-crud)
+- Chapter 10 [Nested Turbo Frames](https://www.hotrails.dev/turbo-rails/nested-turbo-frames)
+- Chapter 11 [Adding a quote total with Turbo Frames](https://www.hotrails.dev/turbo-rails/quote-totals-turbo-frames)

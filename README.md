@@ -6,7 +6,8 @@ Following this tutorial: https://www.hotrails.dev/turbo-rails
 * Ruby 3
 * Set up app from scratch with `bin/setup`
 * Run server with `bin/dev` and kill with `ctrl c`
-* Run system tests with `bin/rails test:system`
+* Run all tests with `bin/rails test:all`
+* Run only system tests with `bin/rails test:system`
 
 ## Course Notes
 I've taken notes directly in the codebase. In the later chapters, I noted the chapter in the commit message. This is a breakdown of where things are happening in the codebase.
@@ -16,12 +17,14 @@ As a general rule, we set up everything in the basic CRUD way first, then go bac
 
 Since we need a little extra SPA-like functionality in our `create` and `destroy` actions (like adding or removing a record from a list of records inside a `<div>` on the index page), we also need to expand our controller `respond_to` block to include a `turbo_stream` format and provide a corresponding view file (ex: `app/views/quotes/create.turbo_stream.erb`) to outline those actions.
 
-### Hotwire Frames
+### Hotwire Turbo Frames
 This is what gives you the snappy React-like behavior of having components appear/disappear on a single page. The `app/views/quotes/index.html.erb` has a "new" button which, when clicked, makes a form appear on the index page in the `turbo_frame_tag 'new_quote_form'` placeholder element. The form content is coming from the matching `turbo_frame_tag 'new_quote_form'` on the `app/views/quotes/new.html.erb` view. (Same, well, parallel, goes for the `edit` scenario.) Read the notes in the `app/controllers/quotes_controller.rb` and corresponding views for more details.
 
 Following the code for `Quote` gives you the most simple example. Up a step from that is `LineItemDate` because it is a child of `Quote` and then the last level of complexity is the `LineItem` because it is a child of `LineItemDate`. At this most complex level, we need to use a nested dom_id to make sure turbo knows where exactly to locate nodes on the DOM. On the `app/views/quotes/show.html.erb` page, we display several `LineItemDate`s and nested within those components are several `LineItem`s. It is important to differentiate between the `LineItemDate` sections before appending a `ItemDate` into  one.
 
 We used a little CSS magic to handle the "empty state" case of when there are no quotes on the index page. When empty, a prompt to "add a quote" is visible. When a single quote exists, the prompt is not visible. You'll see that in the `app/assets/stylesheets/components/_empty_state.scss`. If we chose not to use CSS, we'd have to write a lot of conditional logic in javascript to handle it. I wrote about it [here](https://lortza.github.io/2022/10/20/css-only-child.html).
+
+We must use a Turbo Frame when we need Turbo to intercept clicks on links and form submissions for us. We don't need a Turbo Frame when we only target an id of the DOM in a Turbo Stream view. However, if you choose to use a Turbo Frame in the first scenario, it is obvious that the id is used somewhere in a Turbo Stream view.
 
 ### Action Cable Streaming
 This is what gives you the functionality that updates content across all browsers. The `Quote` model houses the `broadcasts_to` statements. Always remember to restart the server if you are making changes to broadcast statements in the model or else weird stuff will happen.
@@ -44,3 +47,7 @@ after_update_commit -> { broadcast_replace_later_to "quotes", partial: "quotes/q
 after_destroy_commit -> { broadcast_remove_to "quotes", partial: "quotes/quote", locals: { quote: self }, target: "quotes" }
 ```
 It's clean. I little _too_ clean. I made comments of all of the possible options in the codebase where I could.
+
+## Resources
+* [deploying hotwire apps to heroku](https://www.youtube.com/watch?v=mpWFrUwAN88&t=1755s)
+* [thoughtbot app templates](https://github.com/thoughtbot/hotwire-example-template)

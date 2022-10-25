@@ -4,6 +4,8 @@
 class Quote < ApplicationRecord
   belongs_to :company
   has_many :line_item_dates, dependent: :destroy
+  has_many :line_items, through: :line_item_dates
+
   validates :name, presence: true
 
   # Keep the order of the quotes consistent even if we refresh the page.
@@ -38,8 +40,7 @@ class Quote < ApplicationRecord
   # We could replace all of those individual callbacks with this one heckin chonker version:
   # broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
 
-
-
+  # -----
   # SCENARIO 2: Assuming users' quote visibility is scoped to only quotes by their company:
   # We need to change the stream name to include our scope -- which we've decided will be the
   # company associated with the quote. (Reminder: strangely enlugh, for this demo app, we decided
@@ -47,4 +48,8 @@ class Quote < ApplicationRecord
   # in the company object to this method.
   broadcasts_to ->(quote) { [quote.company, "quotes"] }, inserts_by: :prepend
   # ^this corresponds to the turbo_stream_from statement on the top of the quotes/index.html.erb
+
+  def total_price
+    line_items.sum(&:total_price)
+  end
 end

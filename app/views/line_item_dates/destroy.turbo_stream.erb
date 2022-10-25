@@ -1,3 +1,8 @@
 <%= turbo_stream.remove @line_item_date %>
 
+<!-- to keep the quote total up to date, we need to rerender it every time we destroy a date -->
+<%= turbo_stream.update dom_id(@quote, :total) do %>
+  <%= render "quotes/total", quote: @quote %>
+<% end %>
+
 <%= render_turbo_stream_flash_messages %>

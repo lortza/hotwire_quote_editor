@@ -1,21 +1,24 @@
 <%= turbo_frame_tag line_item_date do %>
   <div class="line-item-date">
-    <div class="line-item-date__header">
-      <h2 class="line-item-date__title">
-        <%= l(line_item_date.date, format: :long) %>
-      </h2>
 
-      <div class="line-item-date__actions">
-        <%= button_to "Delete",
-                      quote_line_item_date_path(quote, line_item_date),
-                      method: :delete,
-                      form: { data: { turbo_confirm: "Are you sure you want to delete this date?" } },
+    <!-- Upon edit, replace only the Date header & buttons portion of this object with the form,
+    not all of the child items.
+    -->
+    <%= turbo_frame_tag dom_id(line_item_date, :edit) do %>
+      <div class="line-item-date__header">
+        <h2 class="line-item-date__title"><%= l(line_item_date.date, format: :long) %></h2>
+        <div class="line-item-date__actions">
+          <%= button_to "Delete",
+                        quote_line_item_date_path(quote, line_item_date),
+                        method: :delete,
+                        form: { data: { turbo_confirm: "Are you sure you want to delete this date and all of its items?" } },
+                        class: "btn btn--light" %>
+          <%= link_to "Edit",
+                      [:edit, quote, line_item_date],
                       class: "btn btn--light" %>
-        <%= link_to "Edit",
-                    [:edit, quote, line_item_date],
-                    class: "btn btn--light" %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <!-- begin line_items section -->
     <div class="line-item-date__body">
